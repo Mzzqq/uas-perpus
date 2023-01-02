@@ -8,20 +8,17 @@
 
 #include <string.h> // Untuk menampilkan perintah strcmp
 
+#include <iomanip>
+
 using namespace std;
 
-void garis() {
-    cout << " \t====================================================== \n";
-}
+string user, pass, username = "admin", password = "1234";
+char status; //Tipe data char user 20 karakter, password 4 karakter, status tidak dibatasi
+int balik; //Tipe data integer
+int a, b, c, d, e, f, j, k, i; //Tipe data integer
+int pil; //Tipe data integer
 
-int main() {
-    string user, pass, username = "admin", password = "1234";
-    char status; //Tipe data char user 20 karakter, password 4 karakter, status tidak dibatasi
-    int balik; //Tipe data integer
-    int a, b, c, d, e, f, j, k, i; //Tipe data integer
-    int pil; //Tipe data integer
-
-    //struct untuk menggabungkan beberapa data dengan tipe data yang berbeda
+//struct untuk menggabungkan beberapa data dengan tipe data yang berbeda
     struct buku {
         int kodeB;
         char judul[30];
@@ -46,22 +43,28 @@ int main() {
     }
     x[100];
 
+void atas();
+void garis();
+void menu();
+void input();
+void book();
+void daf();
+void data();
+void pjm();
+void bali();
+void rekap();
+void ending();
+
+int main() {
     c = 0;
     e = 0;
 
     garis(); //Memanggil fungsi garis()
-    cout << " \tSelamatDatang Di Aplikasi Peminjaman Buku Perpustakaan \n";
+    cout << " \tSelamat Datang Di Aplikasi Peminjaman Buku Perpustakaan\n";
     garis(); //Memanggil fungsi garis()
     cout << endl;
 
-    atas:
-        cout << " Silakan Login terlebih dahulu \n";
-
-    cout << " Username : ";
-    cin >> user;
-    cout << " Password : ";
-    cin >> pass;
-
+    atas();
     if (user == username && pass == password) { //Fungsi percabangan default pass 1234
         cout << " User Berhasil Login\n";
         garis(); //Memanggil fungsi garis()
@@ -70,12 +73,50 @@ int main() {
     } else {
         cout << "Password Salah\n";
         cout << endl;
-        goto atas;
+        atas();
     }
 
     //Menampilkan Menu pilihan
-    menu:
-        garis(); //Memanggil fungsi garis()
+    menu();
+
+    //Menampilkan daftar Buku
+    book();
+
+    //pendaftaran anggota
+    daf();
+
+    //data anggota
+    data();
+
+    //peminjaman
+    pjm();
+
+    //pengembalian
+    bali();
+
+    //rekap data
+    rekap();
+
+    ending();
+
+    return 0; //mengembalikan nilai 0 ke sistem menandakan program berjalan dengan baik
+}
+
+void garis() {
+    cout << " \t====================================================== \n";
+}
+
+void atas(){
+    cout << " Silakan Login terlebih dahulu \n";
+
+    cout << " Username : ";
+    cin >> user;
+    cout << " Password : ";
+    cin >> pass;
+}
+
+void menu(){
+    garis(); //Memanggil fungsi garis()
 
     cout << " \t\tPilihan Menu Peminjaman\n";
     cout << " 1. Input Data Buku\n";
@@ -93,40 +134,41 @@ int main() {
     system("cls"); //clears creen
     switch (pil) { //Fungsi switch untuk memilih
     case 1:
-        goto input; //Menuju ke Input Data Buku
+        input(); //Menuju ke Input Data Buku
         break;
     case 2:
-        goto book; //Menuju ke Daftar Buku
+        book(); //Menuju ke Daftar Buku
         break;
     case 3:
-        goto daf; //Menuju ke Pendaftaran Anggota
+        daf(); //Menuju ke Pendaftaran Anggota
         break;
     case 4:
-        goto data; //Menuju ke Data Anggota
+        data(); //Menuju ke Data Anggota
         break;
     case 5:
-        goto pjm; //Menuju ke Peminjaman Buku
+        pjm(); //Menuju ke Peminjaman Buku
         break;
     case 6:
-        goto bali; //Menuju ke Pengembalian Buku
+        bali(); //Menuju ke Pengembalian Buku
         break;
     case 7:
-        goto rekap; //Menuju ke Rekap Buku
+        rekap(); //Menuju ke Rekap Buku
         break;
     case 8:
         cout << " Terimakasih Telah menggunakan aplikasi ini\n";
         cout << endl;
-        goto end; //Keluar Dari Program
+        ending(); //Keluar Dari Program
         break;
     default:
         cout << " Pilihan tidak tersedia\n";
         cout << endl;
-        goto menu; //Menuju ke Menu Awal
+        menu(); //Menuju ke Menu Awal
         break;
     }
-    //input data buku
-    input:
-        cout << " Masukan Banyaknya buku yang akan diinputkan : ";
+}
+
+void input(){
+    cout << " Masukan Banyaknya buku yang akan diinputkan : ";
 
     cin >> a;
     for (b = 0; b < a; b++) { //nilai awal 0, kurang dari nilai input a, bertambah sampai max nilai a
@@ -141,28 +183,29 @@ int main() {
     }
 
     system("cls"); //clear screen
-    goto menu; //Menuju ke Menu Awal
+    menu(); //Menuju ke Menu Awal
 
-    //Menampilkan daftar Buku
-    book:
-        garis(); //Memanggil Fungsi garis ()
+}
 
-    cout << " ======================Daftar Buku=====================\n";
+void book(){
     garis(); //Memanggil Fungsi garis ()
-    cout << " | Kode Buku\t| Judul Buku | Jumlah | \n";
+
+    cout << "   \t======================Daftar Buku=====================\n";
     garis(); //Memanggil Fungsi garis ()
+    cout << "\tKode Buku        Judul Buku      Jumlah\n";
+    garis(); //                 Memanggil Fungsi garis ()
 
     for (b = 0; b < a; b++) { //nilai awal 0, kurang dari nilai input a, bertambah sampai max nilai a
-        cout << " |\t" << z[b].kodeB << "\t| " << z[b].judul << "\t\t|\t" << z[b].stock << endl;
+        cout << "\t" << z[b].kodeB << "                " << z[b].judul << "            " << z[b].stock << "            " << endl;
     }
 
     garis(); //Memanggil Fungsi garis ()
     cout << endl;
-    goto menu; //Menuju ke Menu Awal
+    menu(); //Menuju ke Menu Awal
+}
 
-    //pendaftaran anggota
-    daf:
-        for (d = c; d < c + 1; d++) { //d=c, kurang dari c+1, bertambah terus tidak ada batas
+void daf(){
+    for (d = c; d < c + 1; d++) { //d=c, kurang dari c+1, bertambah terus tidak ada batas
             cout << " Kode Peminjaman (angka): ";
             cin >> y[d].kodeP; //Memasukkan Kode Peminjaman
             cout << " Nama : ";
@@ -178,29 +221,30 @@ int main() {
     cin >> status;
 
     if (status == 'Y' || status == 'y') { //Jika diketik Y maka
-        goto daf; //Menuju ke daftar
+        daf(); //Menuju ke daftar
     } else { //Jika tidak maka
         system("cls"); //Clear screen
-        goto menu; //Menuju ke Menu
+        menu(); //Menuju ke Menu
     }
-    //data anggota
-    data:
-        garis(); //Memanggil Fungsi garis ()
+}
 
-    cout << " ==================Data Nama Anggota===================\n";
+void data(){
     garis(); //Memanggil Fungsi garis ()
-    cout << " | Kode Peminjaman\t| Nama | No. Telepon | \n";
+
+    cout << "   \t==================Data Nama Anggota===================\n";
+    garis(); //Memanggil Fungsi garis ()
+    cout << "\tKode Peminjaman          Nama            No. Telepon  \n";
     garis(); //Memanggil Fungsi garis ()
 
     for (d = 0; d < c; d++) { //nilai d awal adalah 0, d kurang dari c, d terus bertambah kurang dari c
-        cout << " |\t" << y[d].kodeP << "\t| " << y[d].nama << "\t\t|\t" << y[d].tlp << endl;
+        cout << " \t" << y[d].kodeP << "                        " << y[d].nama << "             " << y[d].tlp << "  " << endl;
     }
 
-    goto menu; //Menuju ke Menu Awal
+    menu();
+}
 
-    //peminjaman
-    pjm:
-        for (f = e; f < e + 1; f++) { //f sama dg e, terus bertambah sampai max sama dengan e
+void pjm(){
+            for (f = e; f < e + 1; f++) { //f sama dg e, terus bertambah sampai max sama dengan e
             cout << " Nomor Peminjaman : ";
             cin >> x[f].noPinjam; //Masukkan nomor peminjam
             cout << " Kode Peminjam : ";
@@ -215,10 +259,10 @@ int main() {
                     cout << " Ingin menginputkan data lagi? (y/n) : ";
                     cin >> status;
                     if (status == 'Y' || status == 'y') { //Jika diketik Y maka
-                        goto pjm; //Menuju ke daftar
+                        pjm(); //Menuju ke daftar
                     } else { //Jika tidak maka
                         system("cls"); //Clear screen
-                        goto menu; //Menuju ke Menu
+                        menu(); //Menuju ke Menu
                     }
                 }
             }
@@ -230,7 +274,7 @@ int main() {
                     break;
                 } else { //jika tidak ada maka
                     cout << " Data tidak ditemukan " << endl; //Data tidak ditemukan
-                    goto pjm; //Menuju ke peminjaman
+                    pjm(); //Menuju ke peminjaman
 
                 }
             }
@@ -243,15 +287,16 @@ int main() {
     cout << " Ingin menginputkan data lagi? (y/n) : ";
     cin >> status;
     if (status == 'Y' || status == 'y') { //Jika diinputkan Y, maka
-        goto pjm; //Menuju ke peminjaman`
+        pjm(); //Menuju ke peminjaman`
     } else { //Jika tidak maka
         e = e + 1;
         system("cls"); //Clear screen
-        goto menu; //Menuju ke Menu
+        menu(); //Menuju ke Menu
     }
-    //pengembalian
-    bali:
-        cout << " Masukan kode peminjaman : ";
+}
+
+void bali(){
+    cout << " Masukan kode peminjaman : ";
     cin >> balik; //Memasukkan kode peminjaman
     for (f = 0; f < e; f++) //nilai f awal 0, f terus bertambah hinga max kurang dari e
         if (x[f].kp == balik) {
@@ -260,14 +305,14 @@ int main() {
             cout << " Tanggal Kembali : " << x[f].tglU << endl; //Menampilkan Tanggal Kembali
         } else { //jika tidak maka
             cout << " Kode yang anda masukan salah " << endl;
-            goto bali; //Menuju ke menu pengembalian`
+            bali(); //Menuju ke menu pengembalian`
         }
     cout << endl;
-    goto menu; //Menuju ke menu awal
+    menu(); //Menuju ke menu awal
+}
 
-    //rekap data
-    rekap:
-        cout << endl;
+void rekap(){
+    cout << endl;
     for (j = 0; j < e; j++) { //nilai awal j adalah 0, terus bertambah hingga max kurang dari e
         cout << " Nomor Peminjaman : " << x[j].noPinjam << endl; //Menampilkan Kode Peminjaman
         cout << " Kode Peminjam : " << x[j].kp << endl; //Menampilkan Kode Peminjam
@@ -291,13 +336,13 @@ int main() {
     cin >> status;
     if (status == 'Y' || status == 'y') {
         system("cls"); //clear screen
-        goto menu;
+        menu();
     } //Menuju ke Menu Awalr
     else {
-        goto rekap;
+        rekap();
     }
+}
 
-    end:
-        system("pause"); //system program pause
-    return 0; //mengembalikan nilai 0 ke sistem menandakan program berjalan dengan baik
+void ending(){
+    system("pause"); //system program pause
 }
